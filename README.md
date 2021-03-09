@@ -1,3 +1,3 @@
-# dhruvipatel14.github.io
+# ynpreet.github.io
 
 Portfolio website
