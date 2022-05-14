@@ -339,7 +339,7 @@ section {
   position: relative;
 }
 .clients .swiper-pagination .swiper-pagination-bullet {
-  width: 50px;
+  width: 5px;
   height: 12px;
   background-color: #fff;
   opacity: 1;
