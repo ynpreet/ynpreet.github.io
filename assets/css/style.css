@@ -197,7 +197,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("/Users/preet/Downloads/Github.io/ynpreet.github.io/assets/img/hero-bg.jpg") top center;
+  background: url("/assets/img/00000PORTRAIT_00000_BURST20220104164242778.jpg") top center;
   background-size: cover;
 }
 #hero:before {
