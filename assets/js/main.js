@@ -1,7 +1,7 @@
 (() => {
   // Free Google Analytics 4 integration.
   // Replace the value below with your GA4 Measurement ID (starts with G-).
-  const GA_MEASUREMENT_ID = 'G-REPLACE_ME';
+  const GA_MEASUREMENT_ID = 'G-STZRGV7QX4';
 
   const loadAnalytics = () => {
     if (!/^G-[A-Z0-9]+$/i.test(GA_MEASUREMENT_ID)) return;
