@@ -309,3 +309,28 @@ h1 span{color:var(--accent);background:none;-webkit-text-fill-color:initial}
   .achievement-grid,.resource-grid{grid-template-columns:1fr}
   .resources-note{flex-direction:column}
 }
+
+
+/* Resources page */
+.resources-page{background:#f7f6f2;min-height:100vh;padding-top:120px}
+.resources-hero{max-width:var(--max);margin:auto;padding:65px 0 85px}
+.resources-hero h1{font-family:var(--display);font-size:clamp(58px,8vw,108px);line-height:.9;letter-spacing:-.065em;margin:18px 0 28px}
+.resources-hero h1 em{font-style:normal;color:var(--accent)}
+.resources-hero>p{max-width:620px;color:#666;font-size:17px;line-height:1.65}
+.resources-hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px}
+.resources-hero-pills span{border:1px solid var(--line);border-radius:999px;padding:9px 12px;font:800 9px var(--display);letter-spacing:.12em;background:#fff}
+.resource-library{max-width:var(--max);margin:0 auto;padding:60px 0;border-top:1px solid var(--line)}
+.resource-library-heading{display:grid;grid-template-columns:70px 1fr;gap:25px;align-items:start}
+.resource-library-heading>span{font:800 11px var(--display);color:#aaa}
+.resource-library-heading h2{font-family:var(--display);font-size:clamp(34px,4vw,52px);line-height:1;margin:0 0 10px}
+.resource-library-heading p{color:#6d6d6d;max-width:650px;margin:0;font-size:14px}
+.resource-empty{margin:30px 0 0 95px;border:1px dashed #cfcfc8;border-radius:18px;padding:25px;background:#fff;display:flex;align-items:center;gap:13px;color:#777}
+.resource-empty strong{color:#171717;font:700 14px var(--display)}
+.resource-empty span{font-size:12px}
+.resource-cta{max-width:var(--max);margin:30px auto 80px;padding:42px;border-radius:24px;background:#181818;color:#fff}
+.resource-cta>span{font:800 9px var(--display);letter-spacing:.15em;color:#999}
+.resource-cta h2{font-family:var(--display);font-size:clamp(34px,4vw,55px);line-height:1;margin:15px 0}
+.resource-cta h2 em{font-style:normal;color:#ff9b79}
+.resource-cta p{color:#aaa;max-width:550px;font-size:13px;margin-bottom:25px}
+@media(max-width:900px){.resources-page{padding:100px 24px 0}.resources-hero{padding:50px 0 65px}.resource-library{padding:50px 0}.resource-empty{margin-left:0}.resource-cta{margin-bottom:50px}}
+@media(max-width:600px){.resources-page{padding-left:20px;padding-right:20px}.resources-hero h1{font-size:55px}.resource-library-heading{grid-template-columns:45px 1fr}.resource-empty{align-items:flex-start;flex-wrap:wrap}}
