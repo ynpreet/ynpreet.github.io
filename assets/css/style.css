@@ -334,3 +334,7 @@ h1 span{color:var(--accent);background:none;-webkit-text-fill-color:initial}
 .resource-cta p{color:#aaa;max-width:550px;font-size:13px;margin-bottom:25px}
 @media(max-width:900px){.resources-page{padding:100px 24px 0}.resources-hero{padding:50px 0 65px}.resource-library{padding:50px 0}.resource-empty{margin-left:0}.resource-cta{margin-bottom:50px}}
 @media(max-width:600px){.resources-page{padding-left:20px;padding-right:20px}.resources-hero h1{font-size:55px}.resource-library-heading{grid-template-columns:45px 1fr}.resource-empty{align-items:flex-start;flex-wrap:wrap}}
+
+/* Substack article hub (blog.html #substack-feed) */
+.feed-meta{font-size:12px;color:#6e6e6e;margin:0 0 18px}
+.feed-status{font-size:14px;color:#6e6e6e}
