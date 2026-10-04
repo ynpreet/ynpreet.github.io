@@ -16,8 +16,12 @@
     window.gtag('js', new Date());
     window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
 
-    document.querySelectorAll('a[href]').forEach(link => {
-      link.addEventListener('click', () => {
+    // Event delegation: also catches links added to the page later
+    // (e.g. the Substack article cards rendered by substack-feed.js).
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href]');
+      if (!link) return;
+      {
         const href = link.href;
         const label = (link.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 120);
         let eventName = 'link_click';
@@ -32,7 +36,7 @@
           link_text: label,
           page_path: window.location.pathname
         });
-      });
+      }
     });
   };
 
