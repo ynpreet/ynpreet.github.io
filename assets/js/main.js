@@ -1,6 +1,5 @@
 (() => {
   // Free Google Analytics 4 integration.
-  // Replace the value below with your GA4 Measurement ID (starts with G-).
   const GA_MEASUREMENT_ID = 'G-STZRGV7QX4';
 
   const loadAnalytics = () => {
@@ -41,115 +40,268 @@
   };
 
   loadAnalytics();
+
+  /* ---------- header / nav ---------- */
   const header = document.querySelector('.site-header');
   const nav = document.querySelector('.nav');
   const toggle = document.querySelector('.menu-toggle');
   const links = [...document.querySelectorAll('.nav a')];
   const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 
-  const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 24);
+  const updateHeader = () => header && header.classList.toggle('scrolled', window.scrollY > 24);
   updateHeader();
-  window.addEventListener('scroll', updateHeader, {passive:true});
+  window.addEventListener('scroll', updateHeader, { passive: true });
 
   toggle?.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
+    const open = header.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open);
   });
 
   links.forEach(link => link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    toggle?.setAttribute('aria-expanded','false');
+    header.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
   }));
 
-  const observer = new IntersectionObserver(entries => {
+  const navObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
       }
     });
-  }, {rootMargin:'-35% 0px -55% 0px', threshold:0});
-  sections.forEach(section => observer.observe(section));
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+  sections.forEach(section => navObserver.observe(section));
 
-  document.querySelector('#year').textContent = new Date().getFullYear();
+  const yearEl = document.querySelector('#year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Motion-first portfolio choreography. The supplied reference video uses a pinned
-  // scroll scene where one gesture controls multiple layers at once.
-  const initMotionStory = () => {
-    const story = document.querySelector('.motion-story');
-    if (!story || !window.gsap || !window.ScrollTrigger) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fineHover = window.matchMedia('(hover: hover)').matches;
 
-    gsap.registerPlugin(ScrollTrigger);
-    const q = (s) => story.querySelector(s);
-    const progress = q('.motion-progress span');
-    const profile = q('.motion-profile');
-    const person = q('.motion-person-frame');
-    const id = q('.motion-id-card');
-    const giant = q('.motion-giant');
-    const about = q('.motion-copy-about');
-    const stack = q('.motion-copy-stack');
-    const work = q('.motion-copy-work');
-    const impact = q('.motion-copy-impact');
-    const tiles = gsap.utils.toArray('.motion-tile', story);
-    const projects = gsap.utils.toArray('.motion-project', story);
-    const impactStats = q('.motion-impact');
-
-    const tl = gsap.timeline({
-      scrollTrigger:{
-        trigger:story,
-        start:'top top',
-        end:'+=3600',
-        scrub:1.15,
-        pin:'.motion-stage',
-        anticipatePin:1,
-        invalidateOnRefresh:true,
-        onUpdate:self => gsap.set(progress,{scaleX:self.progress})
+  /* ---------- scroll reveal ---------- */
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
       }
     });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // 0 → 20%: the profile breathes into the screen and the ID card peels forward.
-    tl.fromTo(profile,{y:120,scale:.78,rotate:-5},{y:0,scale:1,rotate:0,duration:.18,ease:'power3.out'},0)
-      .fromTo(person,{scale:1.08},{scale:1,duration:.18,ease:'power2.out'},0)
-      .fromTo(id,{x:180,y:100,rotate:18,scale:.7,opacity:0},{x:0,y:0,rotate:7,scale:1,opacity:1,duration:.18,ease:'back.out(1.7)'},.04)
-      .fromTo(giant,{x:-40,scale:.9,opacity:.2},{x:0,scale:1.04,opacity:1,duration:.18,ease:'none'},0)
-      .fromTo(about,{x:-70,opacity:0},{x:0,opacity:1,duration:.12,ease:'power2.out'},.08)
-      .to(about,{x:-80,opacity:0,duration:.1,ease:'power2.in'},.2);
-
-    // 20 → 55%: ID card rotates away while the stack tiles pop into a deliberate grid.
-    tl.to(profile,{x:-190,y:20,scale:.84,rotate:-4,duration:.16,ease:'power2.inOut'},.2)
-      .to(id,{x:280,y:-80,rotate:-18,scale:.58,opacity:0,duration:.13,ease:'power3.in'},.2)
-      .to(giant,{x:-170,scale:.82,opacity:.35,duration:.2,ease:'none'},.2)
-      .fromTo(stack,{x:-80,opacity:0},{x:0,opacity:1,duration:.12,ease:'power3.out'},.24)
-      .fromTo(tiles,{scale:.5,opacity:0,y:80,rotation:-8},{scale:1,opacity:1,y:0,rotation:0,stagger:{each:.018,from:'random'},duration:.16,ease:'back.out(1.7)'},.27)
-      .to(tiles,{y:(i)=> i%2 ? -12 : 12,rotation:(i)=> i%2 ? 2 : -2,duration:.12,stagger:{each:.012,from:'edges'},ease:'sine.inOut'},.43)
-      .to(stack,{x:-70,opacity:0,duration:.09,ease:'power2.in'},.51)
-      .to(tiles,{scale:.75,opacity:.18,x:-90,duration:.11,stagger:.008,ease:'power2.in'},.52);
-
-    // 55 → 82%: cards travel horizontally while the copy changes.
-    tl.fromTo(work,{x:-80,opacity:0},{x:0,opacity:1,duration:.11,ease:'power3.out'},.54)
-      .fromTo('.motion-project-track',{x:'22vw'},{x:'-720px',duration:.25,ease:'none'},.55)
-      .to(work,{x:-70,opacity:0,duration:.08,ease:'power2.in'},.76)
-      .to(giant,{x:180,scale:1.12,opacity:.18,duration:.18,ease:'none'},.72);
-
-    // 82 → 100%: impact numbers snap in, then the scene clears for the next section.
-    tl.fromTo(impact,{y:100,opacity:0,scale:.9},{y:0,opacity:1,scale:1,duration:.14,ease:'back.out(1.4)'},.78)
-      .fromTo(impactStats,{y:80,opacity:0},{y:0,opacity:1,duration:.12,ease:'power3.out'},.8)
-      .fromTo(impact,{scale:1},{scale:.94,duration:.1,ease:'power2.inOut'},.94)
-      .to(giant,{scale:1.2,opacity:.06,duration:.06},.94);
-
-    // Give the rest of the portfolio the same scroll choreography: sections rise,
-    // cards stagger in, and project/archive rows get subtle depth.
-    const revealTargets = document.querySelectorAll('.section:not(.hero):not(.motion-story) .section-kicker, .section:not(.hero):not(.motion-story) h2, .section:not(.hero):not(.motion-story) .timeline-item, .section:not(.hero):not(.motion-story) .capability, .section:not(.hero):not(.motion-story) .project-card, .section:not(.hero):not(.motion-story) .archive-project-card, .section:not(.hero):not(.motion-story) .achievement-card, .section:not(.hero):not(.motion-story) .resource-card');
-    revealTargets.forEach((el,i)=>{
-      gsap.fromTo(el,{y:55,opacity:0},{y:0,opacity:1,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+  /* ---------- section title wipe ---------- */
+  const titleObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        titleObserver.unobserve(entry.target);
+      }
     });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('.section-title').forEach(t => titleObserver.observe(t));
 
-    const projectGrid=document.querySelector('.project-grid');
-    if(projectGrid){
-      gsap.fromTo(projectGrid,{x:120},{x:0,ease:'none',scrollTrigger:{trigger:projectGrid,start:'top 90%',end:'top 40%',scrub:.7}});
-    }
+  /* ---------- hero video: fallback + play/pause ---------- */
+  const video = document.getElementById('introVideo');
+  const videoImg = document.getElementById('introFallback');
+  const videoToggle = document.getElementById('videoToggle');
+  const bubble = document.getElementById('speechBubble');
+  let hasVideo = false;
+
+  const useImageFallback = () => {
+    hasVideo = false;
+    if (video) video.style.display = 'none';
+    if (videoImg) videoImg.hidden = false;
+    if (videoToggle) videoToggle.style.display = 'none';
+    if (bubble) bubble.classList.remove('hidden-bubble');
   };
 
-  initMotionStory();
+  if (video) {
+    const src = video.querySelector('source');
+    const onSrcError = () => useImageFallback();
+    video.addEventListener('error', onSrcError);
+    if (src) src.addEventListener('error', onSrcError);
+    video.addEventListener('canplay', () => {
+      hasVideo = true;
+      if (bubble) bubble.classList.add('hidden-bubble');
+    });
+    // If the mp4 404s, some browsers stay silent — double-check shortly after load.
+    setTimeout(() => {
+      if (video.readyState === 0 && video.networkState === 3) useImageFallback();
+    }, 3000);
 
+    videoToggle?.addEventListener('click', () => {
+      if (!hasVideo) return;
+      if (video.paused) {
+        video.play().catch(() => {});
+        videoToggle.textContent = '⏸';
+        videoToggle.setAttribute('aria-label', 'Pause intro video');
+      } else {
+        video.pause();
+        videoToggle.textContent = '▶';
+        videoToggle.setAttribute('aria-label', 'Play intro video');
+      }
+    });
+  } else {
+    useImageFallback();
+  }
+
+  /* ---------- typewriter speech bubble ---------- */
+  const tw = document.getElementById('typewriter');
+  if (tw && !reduceMotion) {
+    const phrases = [
+      "Hi, I'm Preet.",
+      'I build data platforms.',
+      'Healthcare data is my thing.',
+      "Let's talk data."
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    (function tick() {
+      const phrase = phrases[pi];
+      tw.textContent = phrase.slice(0, ci);
+      let wait = deleting ? 26 : 58;
+      if (!deleting && ci === phrase.length) { wait = 1800; deleting = true; }
+      else if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; wait = 400; }
+      else ci += deleting ? -1 : 1;
+      setTimeout(tick, wait);
+    })();
+  } else if (tw) {
+    tw.textContent = "Hi, I'm Preet.";
+  }
+
+  /* ---------- ID card: pendulum drop + flip ---------- */
+  const swing = document.getElementById('idSwing');
+  if (swing && !reduceMotion) {
+    const swingObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          swing.classList.add('dropped');
+          swingObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    swingObserver.observe(swing);
+  } else if (swing) {
+    swing.style.opacity = '1';
+  }
+
+  const idCard = document.querySelector('#idCard');
+  if (idCard) {
+    const flip = () => idCard.classList.toggle('flipped');
+    idCard.addEventListener('click', flip);
+    idCard.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+    });
+  }
+
+  /* ---------- work accordion panels ---------- */
+  const panels = [...document.querySelectorAll('#workPanels .panel')];
+  if (panels.length) {
+    const openPanel = (target) => panels.forEach(p => p.classList.toggle('open', p === target));
+    panels.forEach(panel => {
+      if (fineHover) {
+        panel.addEventListener('mouseenter', () => openPanel(panel));
+      }
+      panel.addEventListener('click', (e) => {
+        if (panel.classList.contains('open')) return;
+        // collapse-first so the clicked panel visibly opens
+        openPanel(panel);
+        e.preventDefault();
+      });
+    });
+  }
+
+  /* ---------- achievements infinite carousel ---------- */
+  const achTrack = document.getElementById('achTrack');
+  if (achTrack) {
+    // Duplicate the cards so the -50% loop is seamless.
+    achTrack.innerHTML += achTrack.innerHTML;
+    // Re-observe duplicated reveal cards (they start hidden until intersecting).
+    achTrack.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
+  }
+
+  /* ---------- periodic table: inspector + family light-up + tilt ---------- */
+  const ptable = document.querySelector('#ptable');
+  const detail = document.querySelector('#ptableDetail');
+  const familyLabels = {
+    languages: 'LANGUAGES', platforms: 'PLATFORMS', databases: 'DATABASES',
+    bi: 'BI & TOOLS', healthcare: 'HEALTHCARE', core: 'CORE'
+  };
+  const setDetail = (el) => {
+    if (!detail || !el) return;
+    detail.querySelector('#pdSym').textContent = el.querySelector('.el-sym').textContent;
+    detail.querySelector('#pdName').textContent = el.dataset.name || '';
+    detail.querySelector('#pdFamily').textContent = familyLabels[el.dataset.family] || '';
+    detail.querySelector('#pdDesc').textContent = el.dataset.desc || '';
+  };
+  if (ptable) {
+    ptable.querySelectorAll('.element').forEach(el => {
+      el.addEventListener('mouseenter', () => setDetail(el));
+      el.addEventListener('focus', () => setDetail(el));
+      el.setAttribute('tabindex', '0');
+      if (fineHover && !reduceMotion) {
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          const rx = ((e.clientY - r.top) / r.height - 0.5) * -12;
+          const ry = ((e.clientX - r.left) / r.width - 0.5) * 12;
+          el.style.transform =
+            `translateY(-6px) scale(1.05) rotateX(${rx.toFixed(1)}deg) rotateY(${ry.toFixed(1)}deg)`;
+        });
+        el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+      }
+    });
+    document.querySelectorAll('#familyFilters .family-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#familyFilters .family-btn').forEach(b => b.classList.remove('on'));
+        btn.classList.add('on');
+        const fam = btn.dataset.family;
+        if (fam === 'all') {
+          ptable.classList.remove('dimmed');
+          ptable.querySelectorAll('.element').forEach(el => el.classList.remove('lit'));
+        } else {
+          ptable.classList.add('dimmed');
+          ptable.querySelectorAll('.element').forEach(el =>
+            el.classList.toggle('lit', el.dataset.family === fam));
+          setDetail(ptable.querySelector(`.element[data-family="${fam}"]`));
+        }
+      });
+    });
+  }
+
+  /* ---------- parallax + timeline draw (single rAF loop) ---------- */
+  const parallaxEls = [...document.querySelectorAll('[data-parallax]')];
+  const timelines = [...document.querySelectorAll('.timeline')];
+  let ticking = false;
+
+  const updateParallax = () => {
+    const vh = window.innerHeight;
+    parallaxEls.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      const speed = parseFloat(el.dataset.parallax || '0.1');
+      const y = -((r.top + r.height / 2) - vh / 2) * speed;
+      const base = el.dataset.parallaxKeep ? 'translate(-50%,-54%) ' : '';
+      el.style.transform = `${base}translate3d(0, ${y.toFixed(1)}px, 0)`;
+    });
+  };
+
+  const updateTimelines = () => {
+    const vh = window.innerHeight;
+    timelines.forEach(tl => {
+      const r = tl.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (vh * 0.82 - r.top) / r.height));
+      tl.style.setProperty('--draw', p.toFixed(3));
+    });
+  };
+
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateParallax();
+      updateTimelines();
+      ticking = false;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
 })();
