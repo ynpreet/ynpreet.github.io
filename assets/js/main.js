@@ -131,6 +131,7 @@
     videoToggle?.addEventListener('click', () => {
       if (!hasVideo) return;
       if (video.paused) {
+        video.muted = false; // user gesture: voiceover becomes audible
         video.play().catch(() => {});
         videoToggle.textContent = '⏸';
         videoToggle.setAttribute('aria-label', 'Pause intro video');
@@ -139,6 +140,11 @@
         videoToggle.textContent = '▶';
         videoToggle.setAttribute('aria-label', 'Play intro video');
       }
+    });
+    video.addEventListener('ended', () => {
+      if (!videoToggle) return;
+      videoToggle.textContent = '▶';
+      videoToggle.setAttribute('aria-label', 'Play intro video');
     });
   } else {
     useImageFallback();
