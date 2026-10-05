@@ -1,9 +1,16 @@
 {
   "publication": "Healthcare for Data Engineers",
   "publication_url": "https://masterdataengineering.substack.com",
-  "updated_utc": "2026-10-04T13:51:34Z",
-  "count": 32,
+  "updated_utc": "2026-10-05T13:52:21Z",
+  "count": 33,
   "posts": [
+    {
+      "title": "Healthcare for Data Engineers | Day 29: Building a Healthy Home Visit Member Churn Model",
+      "url": "https://masterdataengineering.substack.com/p/healthcare-for-data-engineers-day-d44",
+      "date": "2026-10-04",
+      "date_display": "Oct 4, 2026",
+      "excerpt": "Today is Day 29, and today we are going to use an actual use case in which all the concepts that we learned so far will be applicable."
+    },
     {
       "title": "Healthcare for Data Engineers | Day 28: Line of Business (LOB) & Populations",
       "url": "https://masterdataengineering.substack.com/p/healthcare-for-data-engineers-day-ec2",
