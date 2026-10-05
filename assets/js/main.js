@@ -190,18 +190,47 @@
     tw.textContent = "Hi, I'm Preet.";
   }
 
-  /* ---------- ID card: pendulum drop + flip ---------- */
+  /* ---------- ID card: lanyard pop + pendulum physics ---------- */
   const swing = document.getElementById('idSwing');
+  const idZone = swing ? swing.closest('.id-zone') : null;
   if (swing && !reduceMotion) {
-    const swingObserver = new IntersectionObserver(entries => {
+    let dropped = false, inView = false, rafId = 0;
+    let angle = 0, vel = 0, target = 0, lastT = 0;
+
+    // spring-physics loop: cursor nudges the target, the spring gives
+    // natural overshoot + oscillation, like a real badge on a thread
+    const render = (t) => {
+      const dt = Math.min(64, t - (lastT || t - 16.7)) / 16.7;
+      lastT = t;
+      const idle = Math.sin(t / 1400) * 1.8 + Math.sin(t / 2900 + 1.3) * 0.9;
+      const goal = target + idle;
+      vel += (goal - angle) * 0.028 * dt;
+      vel *= Math.pow(0.965, dt);
+      angle += vel * dt;
+      swing.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)';
+      rafId = inView ? requestAnimationFrame(render) : 0;
+    };
+    const kick = () => { if (inView && !rafId) rafId = requestAnimationFrame(render); };
+
+    window.addEventListener('pointermove', (e) => {
+      if (!idZone) return;
+      const r = idZone.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / Math.max(1, window.innerWidth);
+      target = Math.max(-11, Math.min(11, dx * 34));
+      kick();
+    }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => { target = 0; });
+
+    const zoneObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          swing.classList.add('dropped');
-          swingObserver.disconnect();
+        inView = entry.isIntersecting;
+        if (inView) {
+          if (!dropped) { dropped = true; swing.classList.add('dropped'); }
+          kick();
         }
       });
-    }, { threshold: 0.3 });
-    swingObserver.observe(swing);
+    }, { threshold: 0.15 });
+    if (idZone) zoneObserver.observe(idZone);
   } else if (swing) {
     swing.style.opacity = '1';
   }
