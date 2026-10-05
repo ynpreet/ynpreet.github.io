@@ -218,16 +218,33 @@
   /* ---------- work accordion panels ---------- */
   const panels = [...document.querySelectorAll('#workPanels .panel')];
   if (panels.length) {
-    const openPanel = (target) => panels.forEach(p => p.classList.toggle('open', p === target));
+    const openPanel = (target) => panels.forEach(p => {
+      const isOpen = p === target;
+      p.classList.toggle('open', isOpen);
+      p.setAttribute('aria-expanded', String(isOpen));
+    });
+    let hoverTimer = null;
     panels.forEach(panel => {
       if (fineHover) {
-        panel.addEventListener('mouseenter', () => openPanel(panel));
+        // Hover-intent: don't strobe panels when the pointer just sweeps across.
+        panel.addEventListener('mouseenter', () => {
+          clearTimeout(hoverTimer);
+          hoverTimer = setTimeout(() => openPanel(panel), 140);
+        });
+        panel.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
       }
       panel.addEventListener('click', (e) => {
         if (panel.classList.contains('open')) return;
-        // collapse-first so the clicked panel visibly opens
+        clearTimeout(hoverTimer);
         openPanel(panel);
         e.preventDefault();
+      });
+      panel.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          clearTimeout(hoverTimer);
+          openPanel(panel);
+        }
       });
     });
   }
