@@ -112,7 +112,22 @@
     if (videoImg) videoImg.hidden = false;
     if (videoToggle) videoToggle.style.display = 'none';
     if (bubble) bubble.classList.remove('hidden-bubble');
+    video?.closest('.talk-card')?.classList.add('no-video');
   };
+
+  const muteToggle = document.getElementById('muteToggle');
+  const syncMuteIcon = () => {
+    if (!muteToggle || !video) return;
+    muteToggle.textContent = video.muted ? '🔇' : '🔊';
+    muteToggle.setAttribute('aria-label', video.muted ? 'Unmute intro video' : 'Mute intro video');
+  };
+  muteToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!hasVideo || !video) return;
+    video.muted = !video.muted;
+    if (!video.muted && video.paused) video.play().catch(() => {});
+    syncMuteIcon();
+  });
 
   if (video) {
     const src = video.querySelector('source');
@@ -121,6 +136,7 @@
     if (src) src.addEventListener('error', onSrcError);
     video.addEventListener('canplay', () => {
       hasVideo = true;
+      syncMuteIcon();
       if (bubble) bubble.classList.add('hidden-bubble');
     });
     // If the mp4 404s, some browsers stay silent — double-check shortly after load.
@@ -135,6 +151,7 @@
         video.play().catch(() => {});
         videoToggle.textContent = '⏸';
         videoToggle.setAttribute('aria-label', 'Pause intro video');
+        syncMuteIcon();
       } else {
         video.pause();
         videoToggle.textContent = '▶';
