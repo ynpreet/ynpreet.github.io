@@ -145,7 +145,7 @@ section[id] { scroll-margin-top: 92px; }
   transform: translate(-50%, -54%);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(120px, 24vw, 380px);
+  font-size: clamp(140px, 26vw, 620px);
   letter-spacing: -0.02em;
   line-height: 1;
   color: #e9e2d1; /* solid ghost fill, like the reference — shows through the video's blended backdrop */
@@ -248,6 +248,14 @@ section[id] { scroll-margin-top: 92px; }
   filter: grayscale(1) contrast(1.05);
   mix-blend-mode: multiply;
   display: block;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%);
+  mask-composite: intersect;
 }
 .scroll-cue {
   position: absolute;
@@ -947,6 +955,15 @@ section[id] { scroll-margin-top: 92px; }
   filter: grayscale(1) contrast(1.05);
   mix-blend-mode: multiply;
   display: block;
+  /* feather the frame edges so no rectangle boundary shows against the page */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 26px, #000 calc(100% - 26px), transparent 100%);
+  mask-composite: intersect;
 }
 .speech-bubble {
   position: absolute; top: -30px; right: -18px; z-index: 3;
