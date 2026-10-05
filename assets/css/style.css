@@ -146,8 +146,7 @@ a { color: inherit; }
   font-size: clamp(120px, 24vw, 380px);
   letter-spacing: -0.02em;
   line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(20, 20, 20, 0.10);
+  color: #e9e2d1; /* solid ghost fill, like the reference — shows through the video's blended backdrop */
   white-space: nowrap;
   user-select: none;
   pointer-events: none;
