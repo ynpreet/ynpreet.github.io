@@ -59,6 +59,8 @@ a { color: inherit; }
   transition-delay: var(--reveal-delay, 0s);
 }
 .reveal.in { opacity: 1; transform: none; }
+/* QA fix: keep anchored sections clear of the floating nav pill */
+section[id] { scroll-margin-top: 92px; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
@@ -424,7 +426,7 @@ a { color: inherit; }
 .family-btn {
   font-family: var(--font-display);
   font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-  padding: 9px 16px; border-radius: 999px;
+  padding: 11px 18px; border-radius: 999px;
   border: 1px solid var(--line-strong);
   background: transparent; color: var(--ink);
   cursor: pointer;
@@ -1095,11 +1097,14 @@ a { color: inherit; }
 .ach-card { flex: 0 0 min(380px, 80vw); scroll-snap-align: unset; }
 
 /* ---------- title wipe reveal ---------- */
-.section-title {
-  clip-path: inset(-12% -3% 112% -3%);
-  transition: clip-path 1.1s var(--ease);
+/* QA fix: the wipe runs as an animation triggered by .in (added by the reveal
+   observer). The old fully-clipped initial state gave zero visible area, so
+   IntersectionObserver never fired and titles stayed invisible. */
+.section-title.in { animation: titleWipe 1.1s var(--ease); }
+@keyframes titleWipe {
+  from { clip-path: inset(-12% -3% 112% -3%); }
+  to { clip-path: inset(-12% -3% -12% -3%); }
 }
-.section-title.in { clip-path: inset(-12% -3% -12% -3%); }
 
 /* ---------- timeline draw ---------- */
 .timeline::before {
@@ -1122,7 +1127,7 @@ a { color: inherit; }
   .speech-bubble .caret { animation: none !important; }
   .id-swing, .id-swing.dropped { opacity: 1; animation: none; }
   .id-swing .lanyard, .id-swing .lanyard-clip, .id-swing .id-card { animation: none !important; opacity: 1; transform: none; }
-  .section-title { clip-path: none; }
+  .section-title.in { animation: none; }
 }
 
 /* ---------- work archive wrapper ---------- */
@@ -1150,11 +1155,12 @@ a { color: inherit; }
   .about-grid-3 { grid-template-columns: 1fr; }
   .panels { flex-direction: column; min-height: 0; }
   .panel { flex: none; min-height: 84px; }
-  .panel.open { min-height: 560px; }
+  .panel.open { min-height: 0; }
   .panel-collapsed-label { flex-direction: row; padding: 0 22px; align-items: center; gap: 16px; }
   .panel-collapsed-label .p-num { flex-shrink: 0; }
   .panel-collapsed-label .p-vtitle { writing-mode: horizontal-tb; margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-  .panel-collapsed-label .p-plus { margin-left: auto; }
+  .panel-collapsed-label .p-plus { margin-left: auto; flex-shrink: 0; }
   .panel-body { padding: 28px 24px; }
+  .panel.open .panel-body { position: relative; }
   .speech-bubble { right: 0; top: -24px; min-width: 160px; }
 }
