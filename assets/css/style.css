@@ -145,7 +145,7 @@ section[id] { scroll-margin-top: 92px; }
   transform: translate(-50%, -54%);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(140px, 26vw, 620px);
+  font-size: clamp(140px, 31vw, 720px);
   letter-spacing: -0.02em;
   line-height: 1;
   color: #e9e2d1; /* solid ghost fill, like the reference — shows through the video's blended backdrop */
@@ -243,6 +243,7 @@ section[id] { scroll-margin-top: 92px; }
   box-shadow: none;
   overflow: visible;
 }
+.talk-card img[hidden] { display: none; }
 .talk-card img {
   width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: contain;
   filter: grayscale(1) contrast(1.05);
