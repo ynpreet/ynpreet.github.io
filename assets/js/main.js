@@ -20,6 +20,7 @@
     document.addEventListener('click', (event) => {
       const link = event.target.closest('a[href]');
       if (!link) return;
+      if ((link.getAttribute('href') || '').startsWith('#')) return; // in-page anchors aren't outbound clicks
       {
         const href = link.href;
         const label = (link.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 120);
@@ -88,17 +89,6 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  /* ---------- section title wipe ---------- */
-  const titleObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        titleObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.35 });
-  document.querySelectorAll('.section-title').forEach(t => titleObserver.observe(t));
-
   /* ---------- hero video: fallback + play/pause ---------- */
   const video = document.getElementById('introVideo');
   const videoImg = document.getElementById('introFallback');
@@ -147,15 +137,18 @@
     videoToggle?.addEventListener('click', () => {
       if (!hasVideo) return;
       if (video.paused) {
-        video.muted = false; // user gesture: voiceover becomes audible
-        video.play().catch(() => {});
-        videoToggle.textContent = '⏸';
-        videoToggle.setAttribute('aria-label', 'Pause intro video');
-        syncMuteIcon();
+        video.play().then(() => {
+          video.muted = false; // user gesture: voiceover becomes audible
+          videoToggle.textContent = '⏸';
+          videoToggle.setAttribute('aria-label', 'Pause intro video');
+          videoToggle.setAttribute('title', 'Pause intro video');
+          syncMuteIcon();
+        }).catch(() => {});
       } else {
         video.pause();
         videoToggle.textContent = '▶';
         videoToggle.setAttribute('aria-label', 'Play intro video');
+        videoToggle.setAttribute('title', 'Play intro video');
       }
     });
     video.addEventListener('ended', () => {
@@ -285,6 +278,15 @@
     achTrack.innerHTML += achTrack.innerHTML;
     // Re-observe duplicated reveal cards (they start hidden until intersecting).
     achTrack.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
+    // Tap toggles the marquee on touch (there is no hover-to-pause there).
+    const achMarquee = achTrack.closest('.ach-marquee');
+    if (achMarquee) {
+      achMarquee.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        const paused = achTrack.style.animationPlayState === 'paused';
+        achTrack.style.animationPlayState = paused ? '' : 'paused';
+      });
+    }
   }
 
   /* ---------- periodic table: inspector + family light-up + tilt ---------- */
