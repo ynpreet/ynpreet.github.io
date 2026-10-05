@@ -231,22 +231,23 @@ a { color: inherit; }
 }
 .hero-socials a:hover { color: var(--ink); border-color: var(--ink); }
 
-/* hero character card — the "video" frame */
+/* hero figure — de-boxed: the presenter blends straight into the page */
 .hero-visual { display: flex; justify-content: center; }
 .talk-card {
   position: relative;
-  width: min(340px, 78vw);
-  aspect-ratio: 3 / 4;
-  border-radius: 26px;
-  overflow: hidden;
-  border: 1px solid var(--line-strong);
-  box-shadow: 0 30px 60px rgba(20, 20, 20, 0.18);
-  transform: rotate(2deg);
-  transition: transform 0.5s var(--ease);
-  background: var(--paper-2);
+  width: min(360px, 72vw);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
 }
-.talk-card:hover { transform: rotate(0deg) scale(1.015); }
-.talk-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+.talk-card img {
+  width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: contain;
+  filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: multiply;
+  display: block;
+}
 .scroll-cue {
   position: absolute;
   bottom: 26px; left: 50%;
@@ -908,14 +909,12 @@ a { color: inherit; }
    ============================================================ */
 
 /* ---------- hero talking figure ---------- */
-.talk-figure { position: relative; animation: floaty 6s ease-in-out infinite; }
-@keyframes floaty {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
+.talk-figure { position: relative; }
 .talk-card video {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: contain;
   filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: multiply;
+  display: block;
 }
 .speech-bubble {
   position: absolute; top: -30px; right: -18px; z-index: 3;
