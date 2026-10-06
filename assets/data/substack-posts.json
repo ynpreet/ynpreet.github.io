@@ -1,9 +1,16 @@
 {
   "publication": "Healthcare for Data Engineers",
   "publication_url": "https://masterdataengineering.substack.com",
-  "updated_utc": "2026-10-05T13:52:21Z",
-  "count": 33,
+  "updated_utc": "2026-10-06T14:23:56Z",
+  "count": 34,
   "posts": [
+    {
+      "title": "Healthcare for Data Engineers | Day 30: From Healthcare Data to a Churn ML Model",
+      "url": "https://masterdataengineering.substack.com/p/healthcare-for-data-engineers-day-1f1",
+      "date": "2026-10-05",
+      "date_display": "Oct 5, 2026",
+      "excerpt": "Today is Day 30, and we are going to continue with the same real-world use case."
+    },
     {
       "title": "Healthcare for Data Engineers | Day 29: Building a Healthy Home Visit Member Churn Model",
       "url": "https://masterdataengineering.substack.com/p/healthcare-for-data-engineers-day-d44",
