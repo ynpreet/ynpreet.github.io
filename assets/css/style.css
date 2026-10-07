@@ -1123,10 +1123,11 @@ section[id] { scroll-margin-top: 92px; }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .talk-figure, .marquee-track, .ach-track, .journey-track,
+  .talk-figure, .marquee-track, .ach-track,
   .hero-eyebrow .dot,
   .speech-bubble .caret { animation: none !important; }
   .j-panel.is-active, .j-chapter.is-active { animation: none; }
+  .j-card, .j-card-logo img, .j-card-link, .j-card-link span { transition: none !important; }
   .id-swing, .id-swing.dropped { opacity: 1; animation: none; }
   .id-swing .lanyard, .id-swing .lanyard-clip, .id-swing .id-card { animation: none !important; opacity: 1; transform: none; }
   .section-title.in { animation: none; }
@@ -1167,32 +1168,69 @@ section[id] { scroll-margin-top: 92px; }
 }
 
 /* ============================================================
-   JOURNEY — logo marquee + per-org use-case stage
+   JOURNEY — logo card grid + per-org use-case stage
    ============================================================ */
-.journey-marquee {
-  overflow: hidden;
-  margin: 0 -6vw 34px;
-  padding: 6px 6vw 10px;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 38px;
 }
-.journey-track {
-  display: flex; gap: 16px; width: max-content;
-  animation: journeyScroll 34s linear infinite;
-}
-.journey-marquee:hover .journey-track { animation-play-state: paused; }
-@keyframes journeyScroll { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-.j-logo {
-  flex: 0 0 auto;
-  display: flex; flex-direction: column; align-items: center; gap: 9px;
+.j-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
   background: var(--card); border: 1px solid var(--line);
-  border-radius: 16px; padding: 18px 24px 15px;
-  cursor: pointer; font-family: inherit; color: inherit;
-  transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
+  border-radius: 18px; padding: 30px 18px 26px;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s;
 }
-.j-logo:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: 0 14px 28px rgba(20,20,20,0.10); }
-.j-logo-img { width: 200px; height: 52px; object-fit: contain; display: block; }
-.j-logo small { font-size: 11px; color: var(--gray); letter-spacing: 0.05em; white-space: nowrap; }
+.j-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--line-strong);
+  box-shadow: 0 22px 44px rgba(20,20,20,0.12);
+}
+.j-card-logo { display: grid; place-items: center; width: 100%; min-height: 76px; }
+.j-card-logo img {
+  width: 100%; max-width: 190px; height: 56px; object-fit: contain; display: block;
+  transition: transform 0.35s var(--ease);
+}
+.j-card:hover .j-card-logo img { transform: scale(1.05); }
+.j-card-cap { font-size: 11.5px; color: var(--gray); letter-spacing: 0.05em; margin: 14px 0 12px; white-space: nowrap; }
+.j-card-link {
+  font-family: var(--font-display); font-weight: 600; font-size: 13.5px;
+  color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+  border-top: 1px solid var(--line); padding-top: 14px; width: 100%;
+  transition: color 0.25s;
+}
+.j-card-link span { display: inline-block; transition: transform 0.25s var(--ease); }
+.j-card:hover .j-card-link { text-decoration: underline; text-underline-offset: 4px; }
+.j-card-link:hover span { transform: translateX(4px); }
+
+/* ---------- journey pages (journey/*.html) ---------- */
+.page-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 600; font-size: 13.5px;
+  color: var(--ink); text-decoration: none;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 10px 20px;
+  transition: background 0.25s var(--ease), color 0.25s;
+}
+.page-back:hover { background: var(--ink); color: var(--paper); }
+.page-hero { padding-top: 150px; }
+.org-logo {
+  max-width: 300px; width: 100%; height: 84px; object-fit: contain; object-position: left center;
+  margin: 6px 0 26px; display: block;
+}
+.page-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(42px, 5.4vw, 76px); letter-spacing: -0.03em; line-height: 1.03;
+  margin: 0 0 16px; max-width: 16ch;
+}
+.page-block { padding-top: 0; padding-bottom: 70px; }
+.throughline { border-top: 1px solid var(--line); padding-top: 60px; padding-bottom: 120px; }
+.throughline-text {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(22px, 2.6vw, 32px); line-height: 1.45;
+  max-width: 34ch; margin-bottom: 34px;
+}
+.throughline-nav { display: flex; gap: 12px; flex-wrap: wrap; }
 
 .journey-nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
 .j-pill {
@@ -1258,12 +1296,29 @@ section[id] { scroll-margin-top: 92px; }
 .journey-arrows button:hover { background: var(--ink); color: var(--paper); }
 #jCounter { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--gray); }
 
+@media (max-width: 1080px) {
+  .journey-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .journey-grid {
+    display: flex; overflow-x: auto;
+    scroll-snap-type: x mandatory; scroll-padding: 6vw;
+    margin: 0 -6vw 30px; padding: 4px 6vw 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .j-card { flex: 0 0 78%; max-width: 320px; scroll-snap-align: center; }
+  .j-card-cap { white-space: normal; }
+  .page-hero { padding-top: 120px; }
+  .throughline-nav .btn { width: 100%; text-align: center; }
+}
 @media (max-width: 760px) {
-  .journey-marquee { margin: 0 -6vw 26px; }
   .j-panel-head { gap: 14px; }
   .j-metrics { gap: 24px; }
-  .j-logo { padding: 16px 22px 13px; }
   .j-word { font-size: 18px; }
+}
+@media (min-width: 1400px) {
+  .journey-grid { gap: 20px; }
+  .j-card { padding: 36px 22px 30px; }
 }
 
 /* ---------- personal projects section (archive moved out of #work) ---------- */
