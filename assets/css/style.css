@@ -1193,7 +1193,7 @@ section[id] { scroll-margin-top: 92px; }
   transition: transform 0.35s var(--ease);
 }
 .j-card:hover .j-card-logo img { transform: scale(1.05); }
-.j-card-cap { font-size: 11.5px; color: var(--gray); letter-spacing: 0.05em; margin: 14px 0 12px; white-space: nowrap; }
+.j-card-cap { font-size: 11.5px; color: var(--gray); letter-spacing: 0.05em; margin: 14px 0 12px; line-height: 1.45; min-height: 2.9em; display: flex; align-items: center; justify-content: center; }
 .j-card-link {
   font-family: var(--font-display); font-weight: 600; font-size: 13.5px;
   color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
