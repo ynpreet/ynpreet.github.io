@@ -1193,7 +1193,7 @@ section[id] { scroll-margin-top: 92px; }
 .j-logo:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: 0 14px 28px rgba(20,20,20,0.10); }
 .j-word { font-family: var(--font-display); font-size: 21px; color: var(--ink); white-space: nowrap; }
 .jw-dcm { font-weight: 800; letter-spacing: 0.04em; }
-.jw-sears { font-family: var(--font-serif); font-weight: 700; }
+.jw-searce { font-family: var(--font-serif); font-weight: 700; }
 .jw-linkedin { font-weight: 700; letter-spacing: -0.02em; }
 .jw-cvs { font-weight: 800; letter-spacing: -0.01em; }
 .jw-exl { font-weight: 800; letter-spacing: 0.14em; }
@@ -1270,3 +1270,8 @@ section[id] { scroll-margin-top: 92px; }
   .j-logo { padding: 16px 22px 13px; }
   .j-word { font-size: 18px; }
 }
+
+/* ---------- personal projects section (archive moved out of #work) ---------- */
+.projects-wrap { padding: 8px 0 0; max-width: none; margin: 0; }
+
+/* journey css synced */
