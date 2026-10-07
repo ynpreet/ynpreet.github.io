@@ -302,10 +302,75 @@
     detail.querySelector('#pdName').textContent = el.dataset.name || '';
     detail.querySelector('#pdFamily').textContent = familyLabels[el.dataset.family] || '';
     detail.querySelector('#pdDesc').textContent = el.dataset.desc || '';
+    renderProjects(el.dataset.name || '');
   };
+  /* projects where each skill was actually used — keyed by element data-name */
+  const skillProjects = {
+    "Python": [
+      ["Russian Troll Tweets", "https://github.com/ynpreet/Analysing-Russian-Troll-Tweets-data-using-Python"],
+      ["GOT Characters Sentiment Analysis", "https://github.com/ynpreet/Game-Of-Thrones-Sentiment-Analysis-using-Twitter-data"],
+      ["Predicting Wildfire in CA", "https://github.com/ynpreet/Prediction-of-Wildfire-in-California"],
+      ["Flight Fare Prediction", "https://github.com/ynpreet/Flight-Fare-Prediction-Web-App-Project-With-Deployment"],
+      ["Predicting Ideal Location for Restaurant", "https://github.com/ynpreet/Predicting-Ideal-location-for-a-new-reastaurant-using-Yelp-dataset"]
+    ],
+    "SQL": [
+      ["Datawarehouse for Yelp", "https://github.com/ynpreet/Data-warehouse-for-Yelp-dataset"],
+      ["Designing Ecommerce OLTP Database", "https://github.com/ynpreet/Designing-Ecommerce-Sales-operation-OLTP-database"]
+    ],
+    "Power BI": [
+      ["DAESO Hackathon Winner", "https://www.linkedin.com/posts/preetmehta_hackathon-powerbi-daeso-activity-6858606729383444480-hQAT?utm_source=linkedin_share&utm_medium=member_desktop_web"]
+    ],
+    "Looker": [
+      ["Looker LookML Developer", "https://drive.google.com/file/d/1SkhBHgFvCZD7VIA2oymBOvMfC3A2q4zi/view?usp=sharing"],
+      ["Looker Consulting Partner", "https://www.linkedin.com/posts/preetmehta_achievementunlocked-solvingforbetter-looker-activity-6811442346924752896-v42U?utm_source=linkedin_share&utm_medium=member_desktop_web"]
+    ],
+    "Tableau": [
+      ["OTT Platform Subscribers", "https://public.tableau.com/app/profile/preet.shailesh.mehta/viz/OTTPlatform_16425659537330/Dashboard1"],
+      ["Feeding the World", "https://public.tableau.com/app/profile/preet.shailesh.mehta/viz/FoodSupplychain/Dashboard2"],
+      ["Spotify", "https://public.tableau.com/app/profile/preet.shailesh.mehta/viz/Spotify_16367235491610/Dashboard1"],
+      ["Game of Thrones", "https://public.tableau.com/app/profile/preet.shailesh.mehta/viz/PreetMehta_Gameofthrones/Kills"]
+    ],
+    "Git": [
+      ["Russian Troll Tweets", "https://github.com/ynpreet/Analysing-Russian-Troll-Tweets-data-using-Python"],
+      ["GOT Characters Sentiment Analysis", "https://github.com/ynpreet/Game-Of-Thrones-Sentiment-Analysis-using-Twitter-data"],
+      ["Predicting Wildfire in CA", "https://github.com/ynpreet/Prediction-of-Wildfire-in-California"],
+      ["Datawarehouse for Yelp", "https://github.com/ynpreet/Data-warehouse-for-Yelp-dataset"],
+      ["Designing Ecommerce OLTP Database", "https://github.com/ynpreet/Designing-Ecommerce-Sales-operation-OLTP-database"],
+      ["Flight Fare Prediction", "https://github.com/ynpreet/Flight-Fare-Prediction-Web-App-Project-With-Deployment"],
+      ["Predicting Ideal Location for Restaurant", "https://github.com/ynpreet/Predicting-Ideal-location-for-a-new-reastaurant-using-Yelp-dataset"]
+    ],
+    "Data Modeling": [
+      ["Datawarehouse for Yelp", "https://github.com/ynpreet/Data-warehouse-for-Yelp-dataset"],
+      ["Designing Ecommerce OLTP Database", "https://github.com/ynpreet/Designing-Ecommerce-Sales-operation-OLTP-database"]
+    ],
+    "ETL / ELT": [
+      ["Datawarehouse for Yelp", "https://github.com/ynpreet/Data-warehouse-for-Yelp-dataset"]
+    ],
+    "Machine Learning": [
+      ["Russian Troll Tweets", "https://github.com/ynpreet/Analysing-Russian-Troll-Tweets-data-using-Python"],
+      ["GOT Characters Sentiment Analysis", "https://github.com/ynpreet/Game-Of-Thrones-Sentiment-Analysis-using-Twitter-data"],
+      ["Predicting Wildfire in CA", "https://github.com/ynpreet/Prediction-of-Wildfire-in-California"],
+      ["Flight Fare Prediction", "https://github.com/ynpreet/Flight-Fare-Prediction-Web-App-Project-With-Deployment"],
+      ["Predicting Ideal Location for Restaurant", "https://github.com/ynpreet/Predicting-Ideal-location-for-a-new-reastaurant-using-Yelp-dataset"]
+    ],
+    "Data Architecture": [
+      ["Datawarehouse for Yelp", "https://github.com/ynpreet/Data-warehouse-for-Yelp-dataset"],
+      ["Designing Ecommerce OLTP Database", "https://github.com/ynpreet/Designing-Ecommerce-Sales-operation-OLTP-database"]
+    ]
+  };
+  const pdProjList = document.getElementById('pdProjList');
+  const renderProjects = (name) => {
+    if (!pdProjList) return;
+    const list = skillProjects[name] || [];
+    pdProjList.innerHTML = list.length
+      ? list.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${t}<span aria-hidden="true">↗</span></a></li>`).join('')
+      : '<li class="pd-empty">No personal projects yet — this skill comes from client work.</li>';
+  };
+  renderProjects('Python');
   if (ptable) {
     ptable.querySelectorAll('.element').forEach(el => {
       el.addEventListener('mouseenter', () => setDetail(el));
+      el.addEventListener('click', () => setDetail(el));
       el.addEventListener('focus', () => setDetail(el));
       el.setAttribute('tabindex', '0');
       if (fineHover && !reduceMotion) {
