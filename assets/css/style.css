@@ -1123,11 +1123,12 @@ section[id] { scroll-margin-top: 92px; }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .talk-figure, .marquee-track, .ach-track,
+  .talk-figure, .marquee-track, .ach-track, .journey-track,
   .hero-eyebrow .dot,
   .speech-bubble .caret { animation: none !important; }
+  .journey-marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
   .j-panel.is-active, .j-chapter.is-active { animation: none; }
-  .j-card, .j-card-logo img, .j-card-link, .j-card-link span { transition: none !important; }
+  .j-card, .j-card-logo img, .j-card-link, .j-card-link span, .j-card-teaser { transition: none !important; }
   .id-swing, .id-swing.dropped { opacity: 1; animation: none; }
   .id-swing .lanyard, .id-swing .lanyard-clip, .id-swing .id-card { animation: none !important; opacity: 1; transform: none; }
   .section-title.in { animation: none; }
@@ -1174,13 +1175,26 @@ section[id] { scroll-margin-top: 92px; }
 /* ============================================================
    JOURNEY — logo card grid + per-org use-case stage
    ============================================================ */
-.journey-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 38px;
+.journey-marquee {
+  overflow: hidden;
+  margin: 0 -6vw 38px;
+  padding: 6px 6vw;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.journey-track {
+  display: flex;
+  width: max-content;
+  animation: j-scroll 55s linear infinite;
+}
+.journey-track:hover { animation-play-state: paused; }
+@keyframes j-scroll {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
 }
 .j-card {
+  flex: 0 0 290px;
+  margin-right: 20px;
   display: flex; flex-direction: column; align-items: center; text-align: center;
   background: var(--card); border: 1px solid var(--line);
   border-radius: 18px; padding: 30px 18px 26px;
@@ -1207,6 +1221,25 @@ section[id] { scroll-margin-top: 92px; }
 .j-card-link span { display: inline-block; transition: transform 0.25s var(--ease); }
 .j-card:hover .j-card-link { text-decoration: underline; text-underline-offset: 4px; }
 .j-card-link:hover span { transform: translateX(4px); }
+.j-card { position: relative; overflow: hidden; }
+.j-card-teaser {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: center; gap: 14px;
+  padding: 28px 24px; text-align: left;
+  background: var(--ink); color: var(--paper); border-radius: 18px;
+  text-decoration: none;
+  opacity: 0; transform: translateY(10px); pointer-events: none;
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.j-card:hover .j-card-teaser { opacity: 1; transform: none; pointer-events: auto; }
+.j-teaser-label {
+  font-family: var(--font-display); font-weight: 700; font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--paper);
+  padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.22);
+}
+.j-card-teaser ul { list-style: none; display: grid; gap: 10px; margin: 0; padding: 0; }
+.j-card-teaser li { position: relative; padding-left: 18px; font-size: 13.5px; line-height: 1.45; color: #cfc9ba; }
+.j-card-teaser li::before { content: "→"; position: absolute; left: 0; color: var(--paper); }
 
 /* ---------- journey pages (journey/*.html) ---------- */
 .page-back {
@@ -1301,17 +1334,10 @@ section[id] { scroll-margin-top: 92px; }
 #jCounter { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--gray); }
 
 @media (max-width: 1080px) {
-  .journey-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .j-card { flex-basis: 270px; }
 }
 @media (max-width: 640px) {
-  .journey-grid {
-    display: flex; overflow-x: auto;
-    scroll-snap-type: x mandatory; scroll-padding: 6vw;
-    margin: 0 -6vw 30px; padding: 4px 6vw 14px;
-    -webkit-overflow-scrolling: touch;
-  }
-  .j-card { flex: 0 0 78%; max-width: 320px; scroll-snap-align: center; }
-  .j-card-cap { white-space: normal; }
+  .j-card { flex: 0 0 74vw; max-width: 300px; }
   .page-hero { padding-top: 120px; }
   .throughline-nav .btn { width: 100%; text-align: center; }
 }
@@ -1321,8 +1347,7 @@ section[id] { scroll-margin-top: 92px; }
   .j-word { font-size: 18px; }
 }
 @media (min-width: 1400px) {
-  .journey-grid { gap: 20px; }
-  .j-card { padding: 36px 22px 30px; }
+  .j-card { flex-basis: 310px; padding: 36px 22px 30px; }
 }
 
 /* ---------- personal projects section (archive moved out of #work) ---------- */
