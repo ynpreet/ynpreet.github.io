@@ -409,14 +409,7 @@
       else if (e.key === 'Home') { e.preventDefault(); setOrg(0, true); }
       else if (e.key === 'End') { e.preventDefault(); setOrg(jOrder.length - 1, true); }
     });
-    // marquee logos jump to the org (mouse delight; pills handle keyboard)
-    document.querySelectorAll('.j-logo').forEach(l => l.addEventListener('click', () => {
-      const i = jOrder.indexOf(l.dataset.org);
-      if (i > -1) {
-        setOrg(i);
-        document.querySelector('.journey-stage')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
-      }
-    }));
+    // journey cards link to per-company contribution pages (plain <a> links — no JS needed)
   }
 
   /* ---------- journey: EXL sub-chapters ---------- */
