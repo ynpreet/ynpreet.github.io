@@ -108,7 +108,7 @@
   const muteToggle = document.getElementById('muteToggle');
   const syncMuteIcon = () => {
     if (!muteToggle || !video) return;
-    muteToggle.textContent = video.muted ? '🔇' : '🔊';
+    muteToggle.classList.toggle('unmuted', !video.muted);
     muteToggle.setAttribute('aria-label', video.muted ? 'Unmute intro video' : 'Mute intro video');
   };
   muteToggle?.addEventListener('click', (e) => {
