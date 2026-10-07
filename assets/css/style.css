@@ -1191,12 +1191,7 @@ section[id] { scroll-margin-top: 92px; }
   transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
 }
 .j-logo:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: 0 14px 28px rgba(20,20,20,0.10); }
-.j-word { font-family: var(--font-display); font-size: 21px; color: var(--ink); white-space: nowrap; }
-.jw-dcm { font-weight: 800; letter-spacing: 0.04em; }
-.jw-searce { font-family: var(--font-serif); font-weight: 700; }
-.jw-linkedin { font-weight: 700; letter-spacing: -0.02em; }
-.jw-cvs { font-weight: 800; letter-spacing: -0.01em; }
-.jw-exl { font-weight: 800; letter-spacing: 0.14em; }
+.j-logo-img { height: 34px; width: auto; max-width: 180px; object-fit: contain; display: block; }
 .j-logo small { font-size: 11px; color: var(--gray); letter-spacing: 0.05em; white-space: nowrap; }
 
 .journey-nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
@@ -1273,5 +1268,3 @@ section[id] { scroll-margin-top: 92px; }
 
 /* ---------- personal projects section (archive moved out of #work) ---------- */
 .projects-wrap { padding: 8px 0 0; max-width: none; margin: 0; }
-
-/* journey css synced */
