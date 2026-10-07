@@ -1186,12 +1186,12 @@ section[id] { scroll-margin-top: 92px; }
   flex: 0 0 auto;
   display: flex; flex-direction: column; align-items: center; gap: 9px;
   background: var(--card); border: 1px solid var(--line);
-  border-radius: 16px; padding: 20px 30px 16px;
+  border-radius: 16px; padding: 18px 24px 15px;
   cursor: pointer; font-family: inherit; color: inherit;
   transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
 }
 .j-logo:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: 0 14px 28px rgba(20,20,20,0.10); }
-.j-logo-img { width: 168px; height: 42px; object-fit: contain; display: block; }
+.j-logo-img { width: 200px; height: 52px; object-fit: contain; display: block; }
 .j-logo small { font-size: 11px; color: var(--gray); letter-spacing: 0.05em; white-space: nowrap; }
 
 .journey-nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
