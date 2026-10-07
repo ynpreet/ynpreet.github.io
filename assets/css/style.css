@@ -655,21 +655,20 @@ section[id] { scroll-margin-top: 92px; }
    ============================================================ */
 .ach-card {
   scroll-snap-align: start;
-  flex: 0 0 min(380px, 80vw);
+  flex: 0 0 min(300px, 78vw);
   border: 1px solid var(--line-strong);
   border-radius: 22px;
   background: var(--card);
-  padding: 30px 28px;
-  display: flex; flex-direction: column; gap: 10px;
+  padding: 22px 20px;
+  display: flex; flex-direction: column; gap: 8px;
   transition: transform 0.35s var(--ease), box-shadow 0.35s, background 0.35s, color 0.35s;
-  min-height: 300px;
 }
 .ach-card:hover { transform: translateY(-8px) rotate(-0.5deg); box-shadow: 0 26px 50px rgba(20,20,20,0.14); }
 .ach-card.dark { background: var(--ink); color: var(--paper); }
 .ach-card.dark .ach-top, .ach-card.dark p { color: #bdb6a6; }
 .ach-card.dark .ach-static { color: var(--paper); border-color: #3d3d3d; }
 .ach-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.2em; color: var(--gray); }
-.ach-big { font-family: var(--font-display); font-size: 64px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin: 6px 0; }
+.ach-big { font-family: var(--font-display); font-size: 44px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin: 6px 0; }
 .ach-card h3 { font-family: var(--font-display); font-size: 22px; letter-spacing: -0.01em; }
 .ach-card p { font-size: 14px; color: var(--gray); flex: 1; }
 .ach-card a, .ach-static {
@@ -1102,7 +1101,7 @@ section[id] { scroll-margin-top: 92px; }
 }
 .ach-marquee:hover .ach-track { animation-play-state: paused; }
 @keyframes achScroll { to { transform: translateX(-50%); } }
-.ach-card { flex: 0 0 min(380px, 80vw); scroll-snap-align: unset; }
+.ach-card { flex: 0 0 min(300px, 78vw); scroll-snap-align: unset; }
 
 /* ---------- title wipe reveal ---------- */
 /* QA fix: the wipe runs as an animation triggered by .in (added by the reveal
