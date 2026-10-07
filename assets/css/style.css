@@ -306,7 +306,7 @@ section[id] { scroll-margin-top: 92px; }
 /* ============================================================
    SECTIONS
    ============================================================ */
-.section { padding: 110px 6vw; max-width: 1280px; margin: 0 auto; }
+.section { padding: 110px 6vw; max-width: 1280px; margin: 0 auto; scroll-margin-top: 70px; }
 .section-full { max-width: none; padding-left: 0; padding-right: 0; }
 .kicker {
   display: flex; align-items: center; gap: 14px;
@@ -1147,6 +1147,10 @@ section[id] { scroll-margin-top: 92px; }
   transition: transform 0.25s var(--ease);
 }
 .mute-toggle:hover { transform: scale(1.08); }
+.mute-toggle svg { display: block; }
+.mute-toggle .ic-unmuted { display: none; }
+.mute-toggle.unmuted .ic-muted { display: none; }
+.mute-toggle.unmuted .ic-unmuted { display: block; }
 .talk-card.no-video .mute-toggle { display: none; }
 
 /* ---------- responsive for new motion ---------- */@media (max-width: 1080px) {
