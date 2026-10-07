@@ -1123,9 +1123,10 @@ section[id] { scroll-margin-top: 92px; }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .talk-figure, .marquee-track, .ach-track,
+  .talk-figure, .marquee-track, .ach-track, .journey-track,
   .hero-eyebrow .dot,
   .speech-bubble .caret { animation: none !important; }
+  .j-panel.is-active, .j-chapter.is-active { animation: none; }
   .id-swing, .id-swing.dropped { opacity: 1; animation: none; }
   .id-swing .lanyard, .id-swing .lanyard-clip, .id-swing .id-card { animation: none !important; opacity: 1; transform: none; }
   .section-title.in { animation: none; }
@@ -1163,4 +1164,109 @@ section[id] { scroll-margin-top: 92px; }
   .panel-body { padding: 28px 24px; }
   .panel.open .panel-body { position: relative; }
   .speech-bubble { right: 0; top: -24px; min-width: 160px; }
+}
+
+/* ============================================================
+   JOURNEY — logo marquee + per-org use-case stage
+   ============================================================ */
+.journey-marquee {
+  overflow: hidden;
+  margin: 0 -6vw 34px;
+  padding: 6px 6vw 10px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.journey-track {
+  display: flex; gap: 16px; width: max-content;
+  animation: journeyScroll 34s linear infinite;
+}
+.journey-marquee:hover .journey-track { animation-play-state: paused; }
+@keyframes journeyScroll { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.j-logo {
+  flex: 0 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 20px 30px 16px;
+  cursor: pointer; font-family: inherit; color: inherit;
+  transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
+}
+.j-logo:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: 0 14px 28px rgba(20,20,20,0.10); }
+.j-word { font-family: var(--font-display); font-size: 21px; color: var(--ink); white-space: nowrap; }
+.jw-dcm { font-weight: 800; letter-spacing: 0.04em; }
+.jw-sears { font-family: var(--font-serif); font-weight: 700; }
+.jw-linkedin { font-weight: 700; letter-spacing: -0.02em; }
+.jw-cvs { font-weight: 800; letter-spacing: -0.01em; }
+.jw-exl { font-weight: 800; letter-spacing: 0.14em; }
+.j-logo small { font-size: 11px; color: var(--gray); letter-spacing: 0.05em; white-space: nowrap; }
+
+.journey-nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
+.j-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  padding: 11px 20px; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: transparent; color: var(--ink);
+  cursor: pointer; transition: background 0.3s var(--ease), color 0.3s, border-color 0.3s;
+}
+.j-pill .j-num { font-size: 11px; color: var(--gray); font-weight: 700; letter-spacing: 0.1em; }
+.j-pill.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.j-pill.is-active .j-num { color: var(--paper); opacity: 0.6; }
+
+.journey-stage { position: relative; }
+.j-panel {
+  display: none;
+  border: 1px solid var(--line-strong); border-radius: 24px;
+  background: var(--card);
+  padding: clamp(28px, 4vw, 54px);
+  box-shadow: 0 24px 60px rgba(20,20,20,0.08);
+}
+.j-panel.is-active { display: block; animation: jPanelIn 0.55s var(--ease); }
+@keyframes jPanelIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.j-panel-head { display: flex; align-items: center; gap: 22px; margin-bottom: 16px; }
+.j-index {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(54px, 6vw, 84px); line-height: 1; letter-spacing: -0.04em;
+  color: transparent; -webkit-text-stroke: 1.5px var(--line-strong);
+  flex-shrink: 0;
+}
+.j-panel h3 { font-family: var(--font-display); font-size: clamp(30px, 3.4vw, 46px); letter-spacing: -0.02em; margin: 0; line-height: 1.05; }
+.j-org-sub { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 0.68em; color: var(--gray); }
+.j-role { color: var(--gray); font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-top: 8px; }
+.j-story { font-family: var(--font-serif); font-style: italic; font-size: clamp(19px, 2vw, 24px); line-height: 1.5; margin: 4px 0 24px; max-width: 60ch; }
+.j-did { list-style: none; display: grid; gap: 12px; margin: 0 0 30px; padding: 0; }
+.j-did li { position: relative; padding-left: 26px; font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); max-width: 74ch; }
+.j-did li::before { content: "→"; position: absolute; left: 0; font-weight: 700; color: var(--ink); }
+.j-metrics { display: flex; gap: clamp(28px, 5vw, 64px); flex-wrap: wrap; margin-bottom: 26px; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.j-metrics b { display: block; font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 3.6vw, 52px); letter-spacing: -0.03em; line-height: 1.1; }
+.j-metrics span { font-size: 12px; color: var(--gray); letter-spacing: 0.06em; }
+.j-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.j-tags span { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px; color: var(--ink-soft); }
+
+.j-subnav { display: flex; gap: 8px; flex-wrap: wrap; margin: 2px 0 26px; }
+.j-subnav button {
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line);
+  background: transparent; color: var(--ink-soft); cursor: pointer;
+  transition: background 0.25s var(--ease), color 0.25s, border-color 0.25s;
+}
+.j-subnav button.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.j-chapter { display: none; }
+.j-chapter.is-active { display: block; animation: jPanelIn 0.45s var(--ease); }
+.j-chapter h4 { font-family: var(--font-display); font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -0.01em; margin: 0 0 16px; }
+
+.journey-arrows { display: flex; align-items: center; gap: 18px; margin-top: 26px; }
+.journey-arrows button {
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 1px solid var(--line-strong); background: transparent; color: var(--ink);
+  font-size: 20px; cursor: pointer; display: grid; place-items: center;
+  transition: background 0.25s var(--ease), color 0.25s;
+}
+.journey-arrows button:hover { background: var(--ink); color: var(--paper); }
+#jCounter { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.18em; color: var(--gray); }
+
+@media (max-width: 760px) {
+  .journey-marquee { margin: 0 -6vw 26px; }
+  .j-panel-head { gap: 14px; }
+  .j-metrics { gap: 24px; }
+  .j-logo { padding: 16px 22px 13px; }
+  .j-word { font-size: 18px; }
 }
