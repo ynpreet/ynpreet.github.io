@@ -345,39 +345,169 @@
     <!-- ================= EXPERIENCE ================= -->
     <section class="section" id="experience">
       <div class="kicker reveal" data-num="04">EXPERIENCE</div>
-      <h2 class="section-title reveal">Education &amp; <span class="serif">experience.</span></h2>
-      <p class="section-sub reveal">Across consulting, analytics, product and engineering environments, the common thread has been making complex data understandable and useful.</p>
-      <div class="timeline">
-        <article class="timeline-item reveal">
-          <div class="timeline-year">NOW</div>
-          <span class="t-org">EXL SERVICE — NEW YORK</span>
-          <h3>Manager, Healthcare Analytics</h3>
-          <p>Leading modern data engineering work for healthcare use cases — from platform adoption and governance to pipeline modernization, feature data and analytics delivery.</p>
-          <div class="timeline-tags"><span>Healthcare</span><span>Databricks</span><span>Cloud</span><span>PySpark</span></div>
+      <h2 class="section-title reveal">The <span class="serif">journey.</span></h2>
+      <p class="section-sub reveal">Five organizations, one through-line — taking messy, high-stakes data and turning it into systems people can trust. Follow the logos, then open each use case.</p>
+            <!-- logo marquee — the way the first site did it -->
+      <div class="journey-marquee reveal" aria-hidden="true">
+        <div class="journey-track">
+          <button class="j-logo" data-org="dcm" tabindex="-1"><span class="j-word jw-dcm">DCM SHRIRAM</span><small>IoT &amp; supply-chain data · 5 yrs</small></button>
+          <button class="j-logo" data-org="sears" tabindex="-1"><span class="j-word jw-sears">Sears</span><small>Looker-certified in 30 days</small></button>
+          <button class="j-logo" data-org="linkedin" tabindex="-1"><span class="j-word jw-linkedin">LinkedIn</span><small>Sales-ops reporting at scale</small></button>
+          <button class="j-logo" data-org="cvs" tabindex="-1"><span class="j-word jw-cvs">CVS Health</span><small>Campaigns for 340M members</small></button>
+          <button class="j-logo" data-org="exl" tabindex="-1"><span class="j-word jw-exl">EXL</span><small>$300M churn model · Medicare Stars</small></button>
+          <button class="j-logo" data-org="dcm" tabindex="-1"><span class="j-word jw-dcm">DCM SHRIRAM</span><small>IoT &amp; supply-chain data · 5 yrs</small></button>
+          <button class="j-logo" data-org="sears" tabindex="-1"><span class="j-word jw-sears">Sears</span><small>Looker-certified in 30 days</small></button>
+          <button class="j-logo" data-org="linkedin" tabindex="-1"><span class="j-word jw-linkedin">LinkedIn</span><small>Sales-ops reporting at scale</small></button>
+          <button class="j-logo" data-org="cvs" tabindex="-1"><span class="j-word jw-cvs">CVS Health</span><small>Campaigns for 340M members</small></button>
+          <button class="j-logo" data-org="exl" tabindex="-1"><span class="j-word jw-exl">EXL</span><small>$300M churn model · Medicare Stars</small></button>
+        </div>
+      </div>
+
+      <!-- org selector -->
+      <div class="journey-nav reveal" role="tablist" aria-label="Organizations">
+        <button class="j-pill is-active" role="tab" aria-selected="true" data-org="dcm"><span class="j-num">01</span>DCM Shriram</button>
+        <button class="j-pill" role="tab" aria-selected="false" tabindex="-1" data-org="sears"><span class="j-num">02</span>Sears</button>
+        <button class="j-pill" role="tab" aria-selected="false" tabindex="-1" data-org="linkedin"><span class="j-num">03</span>LinkedIn</button>
+        <button class="j-pill" role="tab" aria-selected="false" tabindex="-1" data-org="cvs"><span class="j-num">04</span>CVS Health</button>
+        <button class="j-pill" role="tab" aria-selected="false" tabindex="-1" data-org="exl"><span class="j-num">05</span>EXL Service</button>
+      </div>
+
+      <!-- use-case stage -->
+      <div class="journey-stage reveal">
+        <article class="j-panel is-active" data-panel="dcm" role="tabpanel" aria-label="DCM Shriram">
+          <div class="j-panel-head">
+            <span class="j-index">01</span>
+            <div><h3>DCM Shriram</h3><p class="j-role">Data Engineer · India · 5 years</p></div>
+          </div>
+          <p class="j-story">Where the journey started — inside a utility giant, learning that machines never stop talking.</p>
+          <ul class="j-did">
+            <li>Built big-data pipelines over IoT telemetry streaming from plant machines</li>
+            <li>Turned machine data into supply-chain improvements</li>
+            <li>Ran PMO analytics — monitoring project health across the organization</li>
+          </ul>
+          <div class="j-metrics">
+            <div><b>5</b><span>years</span></div>
+            <div><b>24/7</b><span>machine telemetry</span></div>
+          </div>
+          <div class="j-tags"><span>Big Data</span><span>IoT</span><span>Supply Chain</span><span>PMO Analytics</span></div>
         </article>
-        <article class="timeline-item reveal">
-          <div class="timeline-year">2023 — 2025</div>
-          <span class="t-org">CVS HEALTH</span>
-          <h3>Data Engineer</h3>
-          <p>Analytics and behavior-change data engineering — building pipelines and datasets that powered member analytics and business decisions.</p>
-          <div class="timeline-tags"><span>Healthcare</span><span>Pipelines</span><span>Analytics</span></div>
+
+        <article class="j-panel" data-panel="sears" role="tabpanel" aria-label="Sears">
+          <div class="j-panel-head">
+            <span class="j-index">02</span>
+            <div><h3>Sears <span class="j-org-sub">India</span></h3><p class="j-role">BI Developer · GCP-focused services</p></div>
+          </div>
+          <p class="j-story">Looker, certified in 30 days — then one of the hardest certifications in the industry, with very few holders worldwide.</p>
+          <ul class="j-did">
+            <li>Cleared the Looker certification within a month of joining</li>
+            <li>Shipped BI projects across clients as a GCP / Looker developer — the project flow never stopped</li>
+          </ul>
+          <div class="j-metrics">
+            <div><b>30</b><span>days to certification</span></div>
+          </div>
+          <div class="j-tags"><span>Looker</span><span>GCP</span><span>BigQuery</span><span>BI</span></div>
         </article>
-        <article class="timeline-item reveal">
-          <div class="timeline-year">2022</div>
-          <span class="t-org">LINKEDIN — NEW YORK</span>
-          <h3>Data Engineer Intern</h3>
-          <p>Eight months of ETL engineering with Hadoop, Presto and Azkaban — learning large-scale data systems from the inside.</p>
-          <div class="timeline-tags"><span>Hadoop</span><span>Presto</span><span>Azkaban</span></div>
+
+        <article class="j-panel" data-panel="linkedin" role="tabpanel" aria-label="LinkedIn">
+          <div class="j-panel-head">
+            <span class="j-index">03</span>
+            <div><h3>LinkedIn</h3><p class="j-role">Data Engineer Intern · New York · 8 months</p></div>
+          </div>
+          <p class="j-story">Reporting on how LinkedIn sells — inside the data engineering team for Sales Operations.</p>
+          <ul class="j-did">
+            <li>Built ETL with Azkaban and Presto over massive datasets</li>
+            <li>Wrote long SQL powering sales reports for Talent Solutions, Learning and Education products</li>
+            <li>Worked across Microsoft Dynamics 365 sales data, tracking how products sell across clients</li>
+          </ul>
+          <div class="j-metrics">
+            <div><b>8</b><span>months</span></div>
+            <div><b>3</b><span>product lines reported</span></div>
+          </div>
+          <div class="j-tags"><span>Presto</span><span>Azkaban</span><span>Hadoop</span><span>SQL</span><span>Dynamics 365</span></div>
         </article>
-        <article class="timeline-item reveal">
-          <div class="timeline-year">FOUNDATION</div>
-          <span class="t-org">NORTHEASTERN UNIVERSITY</span>
-          <h3>Master&rsquo;s + Teaching Assistant</h3>
-          <p>Teaching assistant under Prof. Sagar Kammarthi. Won the Feretti &amp; Yamamura Best Teaching Assistant Award — and started a long run of designing and judging hackathons.</p>
-          <div class="timeline-tags"><span>Teaching</span><span>Mentorship</span><span>Hackathons</span></div>
+
+        <article class="j-panel" data-panel="cvs" role="tabpanel" aria-label="CVS Health">
+          <div class="j-panel-head">
+            <span class="j-index">04</span>
+            <div><h3>CVS Health</h3><p class="j-role">Data Engineer · Analytics &amp; Behavior Change · ~2 years</p></div>
+          </div>
+          <p class="j-story">The data behind campaigns reaching hundreds of millions of members.</p>
+          <ul class="j-did">
+            <li>Owned offline campaign data and supported the data science team day to day</li>
+            <li>Ran daily Airflow pipelines ingesting member files via SFTP into GCS buckets</li>
+            <li>Worked Adobe Experience Platform, Marketo and Campaign for acquisition &amp; retention email programs — monthly, quarterly, yearly; federal, national and commercial lines</li>
+            <li>Purchased and joined organic, inorganic and demographic member data for targeting</li>
+            <li>Analyzed impression and feedback data to measure who actually converts</li>
+          </ul>
+          <div class="j-metrics">
+            <div><b>340M</b><span>member population scale</span></div>
+            <div><b>~2</b><span>years · near Senior DE promo</span></div>
+          </div>
+          <div class="j-tags"><span>Airflow</span><span>Adobe Experience Platform</span><span>GCS</span><span>SFTP</span><span>Campaign Analytics</span></div>
+        </article>
+
+        <article class="j-panel" data-panel="exl" role="tabpanel" aria-label="EXL Service">
+          <div class="j-panel-head">
+            <span class="j-index">05</span>
+            <div><h3>EXL Service</h3><p class="j-role">Manager, Healthcare Analytics · New York · Current</p></div>
+          </div>
+          <p class="j-story">Three high-stakes chapters, one through-line — healthcare data that has to be right.</p>
+          <div class="j-subnav" role="tablist" aria-label="EXL projects">
+            <button class="is-active" role="tab" aria-selected="true" data-chapter="rcm">Nephrology RCM</button>
+            <button role="tab" aria-selected="false" data-chapter="risk">Revenue Integrity</button>
+            <button role="tab" aria-selected="false" data-chapter="stars">Humana Stars</button>
+          </div>
+          <div class="j-chapter is-active" data-chapter="rcm">
+            <h4>One pipeline for every EMR</h4>
+            <ul class="j-did">
+              <li>Built the entire RCM (revenue cycle management) model for an integrated nephrology provider group</li>
+              <li>Unified Athena, AdvancedMD and Epic into a business-logic-agnostic pipeline — any future EMR plugs in the same way</li>
+              <li>Migrated Azure Data Factory / SSMS / SSIS to Databricks + Snowflake; refactored the whole codebase</li>
+              <li>Stood up Databricks from scratch — networking to production; they didn't have it before</li>
+              <li>Deployed through Azure DevOps across multiple environments</li>
+            </ul>
+            <div class="j-metrics">
+              <div><b>6</b><span>engineers led</span></div>
+              <div><b>6</b><span>months, delivered</span></div>
+              <div><b>3+</b><span>EMRs unified</span></div>
+            </div>
+            <div class="j-tags"><span>Databricks</span><span>Snowflake</span><span>Azure Data Factory</span><span>SSIS</span><span>Azure DevOps</span><span>RCM</span></div>
+          </div>
+          <div class="j-chapter" data-chapter="risk">
+            <h4>Risk adjustment at scale</h4>
+            <ul class="j-did">
+              <li>Built an Auto Loader pipeline ingesting vendor files (Ciox, Datavant, Cotiviti — TXT, ZIP, CSV) into per-line-of-business tables: Medicare, Medicaid, Dual, D-SNP</li>
+              <li>Built home-visit and enrollment dashboards for Health &amp; Human Services reporting</li>
+              <li>Shipped a Medicaid member-churn ML model that told the team exactly which members to reach out to</li>
+            </ul>
+            <div class="j-metrics">
+              <div><b>$300M</b><span>saved by the churn model</span></div>
+              <div><b>4</b><span>lines of business</span></div>
+            </div>
+            <div class="j-tags"><span>Auto Loader</span><span>Risk Adjustment</span><span>Machine Learning</span><span>Dashboards</span></div>
+          </div>
+          <div class="j-chapter" data-chapter="stars">
+            <h4>Predicting decline before it happens</h4>
+            <ul class="j-did">
+              <li>Building an ML model for Medicare Stars that flags members whose health is likely to decline over the next two years — so care teams can act early</li>
+              <li>Designed to lift HOS and PCS scores, and with them the Star rating itself</li>
+              <li>Leading a team of 4 engineers on the build</li>
+            </ul>
+            <div class="j-metrics">
+              <div><b>2-yr</b><span>prediction window</span></div>
+              <div><b>4</b><span>engineers led</span></div>
+            </div>
+            <div class="j-tags"><span>Machine Learning</span><span>Medicare Stars</span><span>HOS</span><span>PCS</span><span>Predictive Health</span></div>
+          </div>
         </article>
       </div>
-    </section>
+
+      <div class="journey-arrows reveal">
+        <button id="jPrev" aria-label="Previous organization">←</button>
+        <span id="jCounter" aria-live="polite">01 / 05</span>
+        <button id="jNext" aria-label="Next organization">→</button>
+      </div>
+</section>
 
     <!-- ================= CERTIFICATIONS ================= -->
     <section class="section" id="learning" style="padding-top:0;">
