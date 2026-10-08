@@ -670,7 +670,7 @@ section[id] { scroll-margin-top: 92px; }
 .ach-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.2em; color: var(--gray); }
 .ach-big { font-family: var(--font-display); font-size: 44px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin: 6px 0; }
 .ach-card h3 { font-family: var(--font-display); font-size: 22px; letter-spacing: -0.01em; }
-.ach-card p { font-size: 14px; color: var(--gray); flex: 1; }
+.ach-card p { font-size: 14px; color: var(--gray); }
 .ach-card a, .ach-static {
   font-size: 13px; font-weight: 700; text-decoration: none;
   border-top: 1px solid var(--line); padding-top: 14px; margin-top: 6px;
@@ -1094,9 +1094,10 @@ section[id] { scroll-margin-top: 92px; }
 .panel-body .wc-tech span { font-size: 11px; font-weight: 600; border: 1px dashed var(--line-strong); border-radius: 999px; padding: 4px 11px; }
 
 /* ---------- achievements auto-carousel ---------- */
+/* compact pass 2026-10-08: cards size to content, no stretch */
 .ach-marquee { overflow: hidden; padding: 10px 0 26px; margin: 0 -6vw; padding-left: 6vw; padding-right: 6vw; }
 .ach-track {
-  display: flex; gap: 18px; width: max-content;
+  display: flex; gap: 18px; width: max-content; align-items: center;
   animation: achScroll 36s linear infinite;
 }
 .ach-marquee:hover .ach-track { animation-play-state: paused; }
@@ -1360,7 +1361,7 @@ section[id] { scroll-margin-top: 92px; }
 .projects-wrap { padding: 8px 0 0; max-width: none; margin: 0; }
 
 /* ---------- achievement card photo ---------- */
-.ach-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top center; border-radius: 14px; margin: 4px 0 6px; display: block; }
+.ach-photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; border-radius: 14px; margin: 4px 0 6px; display: block; }
 
 /* ---------- proof strip (quantified highlights after hero) ---------- */
 .proof-strip {
